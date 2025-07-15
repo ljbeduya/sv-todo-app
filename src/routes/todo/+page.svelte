@@ -108,7 +108,7 @@
 					</li>
 				{/each}
 				{#if data.todos.filter(todo => todo.done).length === 0}
-					<p class="text-gray-500">No completed todos yet</p>
+					<p class="text-gray-500">No completed todos yet.</p>
 				{/if}
 			</ul>
 		</div>
