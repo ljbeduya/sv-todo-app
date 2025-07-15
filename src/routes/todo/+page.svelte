@@ -51,8 +51,12 @@
 		onclick={handleCreate}
 	>Add a todo</button>
 	<button 
-		class="search-btn bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-600" 
+		class="search-btn text-white py-2 px-4 rounded" 
 		onclick={() => doSearch = !doSearch}
+		disabled={!data.todos.length}
+		class:bg-gray-400={data.todos.length}
+		class:hover:bg-gray-600={data.todos.length}
+		class:bg-gray-300={!data.todos.length}
 	>{ !doSearch ? 'Show' : 'Hide' } Search</button>
 	{#if doSearch}
 		<div transition:slide>
@@ -74,15 +78,21 @@
 			/>	
 		</div>
 	{/if}
-	<ul>
-		{#each data.todos.filter(todo => !todo.done) as todo (todo.id)}
-			<li in:fly={{ y: 20, duration: 400 }} out:slide={{ duration: 300 }}>
-				<TodoItem {todo} {handleTodoToggle} {handleDelete} />
-			</li>
-		{/each}
-	</ul>
+	{#if data.todos.length === 0}
+		<p class="text-gray-500">You have no todos yet.</p>
+	{:else}
+		<div class="todo-items">
+			<ul>
+				{#each data.todos.filter(todo => !todo.done) as todo (todo.id)}
+					<li in:fly={{ y: 20, duration: 400 }} out:slide={{ duration: 300 }}>
+						<TodoItem {todo} {handleTodoToggle} {handleDelete} />
+					</li>
+				{/each}
+			</ul>
+		</div>
+	{/if}
 	<br />
-	<div class="flex justify-between items-center">
+	<div class="completed-todos flex justify-between items-center">
 		<span>Completed Todos</span>
 		<button
 			class="completed-btn bg-green-300 text-black py-2 px-4 rounded hover:bg-green-400"
@@ -113,5 +123,8 @@
 	}
 	.create-btn, .search-btn, .completed-btn {
 		margin-bottom: 5px;
+	}
+	.text-column {
+		width: 20rem;
 	}
 </style>

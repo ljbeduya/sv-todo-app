@@ -4,7 +4,7 @@ const database = new Map();
 
 export function getTodos(userid: string) : Array<Todo>{
 	if (!database.has(userid)) {
-		createTodo({ userid, description: 'My to do' });
+		return [];
 	}
 
 	return Array.from(database.get(userid).values());
