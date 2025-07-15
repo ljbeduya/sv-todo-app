@@ -10,7 +10,7 @@
 
   let searchKey = $state("");
 
-  let originalTodos = [...data.todos];
+  let originalTodos = [...(data?.todos ?? [])];
 
   function handleCreate() {
     goto("/todo/create");
@@ -24,7 +24,7 @@
       },
       body: JSON.stringify({ done }),
     });
-    invalidate("app:todolist");
+    invalidate("todo:todos");
   }
 
   async function handleDelete(todoId: string) {
@@ -34,7 +34,7 @@
         "Content-Type": "application/json",
       },
     });
-    invalidate("app:todolist");
+    invalidate("todo:todos");
   }
 </script>
 

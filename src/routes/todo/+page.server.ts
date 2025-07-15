@@ -8,7 +8,7 @@ export const load = ({ cookies, depends }) => {
     cookies.set("userid", userid, { path: "/" });
   }
 
-  depends("app:todolist");
+  depends("todo:todos");
 
   return {
     todos: db.getTodos(userid),
