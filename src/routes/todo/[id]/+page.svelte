@@ -1,14 +1,13 @@
 <script lang="ts">
-    import type { PageProps } from './$types';
-    import TodoForm from '../TodoForm.svelte';
+  import TodoForm from "../TodoForm.svelte";
 
-    let  { data, form } : PageProps = $props();
+  let { data, form } = $props();
 </script>
 
-<TodoForm 
-    description={data.todo.description}
-    done={data.todo.done}
-    saveActionPath="?/update" 
-    deleteActionPath="?/delete"
-    errorMessage={form?.error}
+<TodoForm
+  description={data.todo.description}
+  done={data.todo.done}
+  saveActionPath="?/update"
+  deleteActionPath="?/delete"
+  errorMessage={form?.error}
 />

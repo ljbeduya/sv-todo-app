@@ -1,7 +1,7 @@
 <script lang="ts">
-    import TodoForm from '../TodoForm.svelte';
+  import TodoForm from "../TodoForm.svelte";
 
-    let { form} = $props();
+  let { form } = $props();
 </script>
 
 <TodoForm saveActionPath="?/create" errorMessage={form?.error} />

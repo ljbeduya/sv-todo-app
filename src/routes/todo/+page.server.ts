@@ -1,17 +1,16 @@
-import * as db from '$lib/server/database';
-import type { PageServerLoad } from './$types';
+import * as db from "$lib/server/database";
 
-export const load: PageServerLoad = ({ cookies, depends }) => {
-    let userid = cookies.get('userid');
+export const load = ({ cookies, depends }) => {
+  let userid = cookies.get("userid");
 
-    if (!userid) {
-        userid = crypto.randomUUID();
-        cookies.set('userid', userid, { path : '/'});
-    }
+  if (!userid) {
+    userid = crypto.randomUUID();
+    cookies.set("userid", userid, { path: "/" });
+  }
 
-    depends('app:todolist')
+  depends("app:todolist");
 
-    return {
-        todos: db.getTodos(userid)
-    };
+  return {
+    todos: db.getTodos(userid),
+  };
 };
