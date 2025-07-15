@@ -1,7 +1,7 @@
 <script lang="ts">
   let { todo, handleTodoToggle, handleDelete } = $props();
   let description = $derived(
-    todo.description.length > 20
+    todo.description.length > 30
       ? `${todo.description.slice(0, 30)}...`
       : todo.description
   );
@@ -19,19 +19,22 @@
     <a
       href={`/todo/${todo.id}`}
       class:text-gray-500={todo.done}
-      class:line-through={todo.done}>{description}</a
+      class:line-through={todo.done}
     >
+      {description}
+    </a>
   </span>
   <button
     class="delete-btn"
     aria-label="Mark as complete"
-    onclick={async () => handleDelete(todo.id)}
-    ><img
+    onclick={async () => await handleDelete(todo.id)}
+  >
+    <img
       src="/remove.svg"
       alt="404 Not Found"
       class="w-full max-w-md mx-auto mb-4"
-    /></button
-  >
+    />
+  </button>
 </div>
 
 <style>
