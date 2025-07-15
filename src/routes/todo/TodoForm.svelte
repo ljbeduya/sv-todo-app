@@ -60,7 +60,11 @@
         </button>
       {/if}
       <button
-        class="btn-primary bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 save-btn"
+        class="btn-primary text-white py-2 px-4 rounded save-btn"
+        disabled={done}
+        class:bg-blue-500={!done}
+        class:hover:bg-blue-600={!done}
+        class:bg-blue-300={done}
       >
         Save
       </button>
