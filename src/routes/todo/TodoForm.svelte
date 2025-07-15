@@ -17,8 +17,16 @@
       {errorMessage}
     </div>
   {/if}
-  <form class="space-y-4" method="POST" action={saveActionPath} use:enhance>
-    <label for="description" class="block text-sm font-medium text-gray-700">
+  <form
+    class="space-y-4"
+    method="POST"
+    action={saveActionPath}
+    use:enhance
+  >
+    <label
+      for="description"
+      class="block text-sm font-medium text-gray-700"
+    >
       <div class="description-label flex items-center">
         <h2>Add a todo:</h2>
         <button
@@ -26,8 +34,10 @@
           onclick={(e) => {
             e.preventDefault();
             goto("/todo");
-          }}>Back</button
+          }}
         >
+          Back
+        </button>
       </div>
       <br />
       <textarea
@@ -45,13 +55,15 @@
         <button
           formaction={deleteActionPath}
           class="btn-secondary bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 delete-btn"
-          >Delete</button
         >
+          Delete
+        </button>
       {/if}
       <button
         class="btn-primary bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 save-btn"
-        >Save</button
       >
+        Save
+      </button>
     </div>
   </form>
 </div>

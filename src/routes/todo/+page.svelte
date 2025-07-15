@@ -40,15 +40,20 @@
 
 <svelte:head>
   <title>To Do List</title>
-  <meta name="todo" content="A to do list app" />
+  <meta
+    name="todo"
+    content="A to do list app"
+  />
 </svelte:head>
 
 <div class="text-column">
   <h1>To Do List</h1>
   <button
     class="create-btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-    onclick={handleCreate}>Add a todo</button
+    onclick={handleCreate}
   >
+    Add a todo
+  </button>
   <button
     class="search-btn text-white py-2 px-4 rounded"
     onclick={() => (doSearch = !doSearch)}
@@ -56,10 +61,14 @@
     class:bg-gray-400={data.todos.length}
     class:hover:bg-gray-600={data.todos.length}
     class:bg-gray-300={!data.todos.length}
-    >{!doSearch ? "Show" : "Hide"} Search</button
   >
+    {!doSearch ? "Show" : "Hide"} Search
+  </button>
   {#if doSearch}
-    <div transition:slide>
+    <div
+      class="search-container"
+      transition:slide
+    >
       <input
         type="text"
         bind:value={searchKey}
@@ -79,34 +88,52 @@
       />
     </div>
   {/if}
-  {#if data.todos.length === 0}
-    <p class="text-gray-500">You have no todos yet.</p>
-  {:else}
-    <div class="todo-items">
+  <div class="todo-list">
+    {#if data.todos.length === 0}
+      <p class="text-gray-500">You have no todos yet.</p>
+    {:else}
       <ul>
         {#each data.todos.filter((todo) => !todo.done) as todo (todo.id)}
-          <li in:fly={{ y: 20, duration: 400 }} out:slide={{ duration: 300 }}>
-            <TodoItem {todo} {handleTodoToggle} {handleDelete} />
+          <li
+            in:fly={{ y: 20, duration: 400 }}
+            out:slide={{ duration: 300 }}
+          >
+            <TodoItem
+              {todo}
+              {handleTodoToggle}
+              {handleDelete}
+            />
           </li>
         {/each}
       </ul>
-    </div>
-  {/if}
+    {/if}
+  </div>
   <br />
-  <div class="completed-todos flex justify-between items-center">
+  <div class="completed-header flex justify-between items-center">
     <span>Completed Todos</span>
     <button
       class="completed-btn bg-green-300 text-black py-2 px-4 rounded hover:bg-green-400"
       onclick={() => (showCompleted = !showCompleted)}
-      >{!showCompleted ? "Show" : "Hide"}</button
     >
+      {!showCompleted ? "Show" : "Hide"}
+    </button>
   </div>
   {#if showCompleted}
-    <div transition:slide>
+    <div
+      class="completed-todos"
+      transition:slide
+    >
       <ul>
         {#each data.todos.filter((todo) => todo.done) as todo (todo.id)}
-          <li in:fly={{ y: 20, duration: 400 }} out:slide={{ duration: 300 }}>
-            <TodoItem {todo} {handleTodoToggle} {handleDelete} />
+          <li
+            in:fly={{ y: 20, duration: 400 }}
+            out:slide={{ duration: 300 }}
+          >
+            <TodoItem
+              {todo}
+              {handleTodoToggle}
+              {handleDelete}
+            />
           </li>
         {/each}
         {#if data.todos.filter((todo) => todo.done).length === 0}

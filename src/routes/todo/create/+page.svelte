@@ -4,4 +4,7 @@
   let { form } = $props();
 </script>
 
-<TodoForm saveActionPath="?/create" errorMessage={form?.error} />
+<TodoForm
+  saveActionPath="?/create"
+  errorMessage={form?.error}
+/>
