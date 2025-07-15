@@ -7,5 +7,4 @@
       class="text-blue-500 hover:underline">home page</a
     >.
   </p>
-  <!-- <img src="/images/404.svg" alt="404 Not Found" class="w-full max-w-md mx-auto mb-4" /> -->
 </div>
