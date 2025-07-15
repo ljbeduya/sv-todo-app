@@ -1,8 +1,8 @@
-import type { Todo } from "$lib/types/todo";
+import type { ITodo } from "$lib/types/todo";
 
 const database = new Map();
 
-export function getTodos(userid: string): Array<Todo> {
+export function getTodos(userid: string): Array<ITodo> {
   if (!database.has(userid)) {
     return [];
   }
@@ -10,12 +10,12 @@ export function getTodos(userid: string): Array<Todo> {
   return Array.from(database.get(userid).values());
 }
 
-export function getTodo({ userid, id }: Todo): Todo {
+export function getTodo({ userid, id }: ITodo): ITodo {
   const todos = database.get(userid);
   return todos.get(id);
 }
 
-export function createTodo({ userid, description }: Todo) {
+export function createTodo({ userid, description }: ITodo) {
   if (!database.has(userid)) {
     database.set(userid, new Map());
   }
@@ -35,7 +35,7 @@ export function createTodo({ userid, description }: Todo) {
   };
 }
 
-export function updateTodo({ userid, id, description }: Todo) {
+export function updateTodo({ userid, id, description }: ITodo) {
   if (!database.has(userid)) {
     return null;
   }
@@ -58,12 +58,12 @@ export function updateTodo({ userid, id, description }: Todo) {
   return updatedTodo;
 }
 
-export function toggleTodo({ userid, id, done }: Todo): void {
+export function toggleTodo({ userid, id, done }: ITodo): void {
   const todos = database.get(userid);
   todos.get(id).done = done;
 }
 
-export function deleteTodo({ userid, id }: Todo): void {
+export function deleteTodo({ userid, id }: ITodo): void {
   const todos = database.get(userid);
   todos.delete(id);
 }
