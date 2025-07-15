@@ -1,7 +1,7 @@
 <script lang="ts">
     let { todo, handleTodoToggle, handleDelete } = $props();
     let description = $derived(todo.description.length > 20 ? 
-     `${todo.description.slice(0, 20)}...` : todo.description
+     `${todo.description.slice(0, 30)}...` : todo.description
     );
 </script>
 
@@ -21,24 +21,26 @@
         >{description}</a>
     </span>
     <button
-        class="delete-btn bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+        class="delete-btn"
         aria-label="Mark as complete"
         onclick={async () => handleDelete(todo.id)}
-    >Delete</button>
+    ><img src="/remove.svg" alt="404 Not Found" class="w-full max-w-md mx-auto mb-4" /></button>
 </div>
 
 <style>
     .delete-btn {
-		/* border: none;
-		background: url(/remove.svg) no-repeat 50% 50%;
-		background-size: 1rem 1rem;
+		border: none;
 		cursor: pointer;
-		height: 100%;
 		aspect-ratio: 1;
 		opacity: 0.5;
-		transition: opacity 0.2s; */
+		transition: opacity 0.2s;
         margin-left: auto;
 	}
+    .delete-btn img {
+        width: 1rem;
+        height: 1rem;
+        margin: auto;
+    }
     .todo-item {
         display: flex;
         justify-content: flex-end;
@@ -46,5 +48,6 @@
         gap: 0.5rem;
         padding: 0.5rem;
         border-bottom: 1px solid #e5e7eb;
+        width: 100%;
     }
 </style>
