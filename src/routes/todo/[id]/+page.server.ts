@@ -1,15 +1,17 @@
 import type { PageServerLoad } from '../$types';
 import type { Actions } from '../$types';
 import * as db from '$lib/server/database';
-import { redirect, fail } from '@sveltejs/kit';
+import { redirect, fail, error} from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({cookies, params}) => {
     const userid: string = cookies.get('userid') as string;
     const id = params.id;
     
-    return {
-        todo: db.getTodo({ userid, id})
+    const todo = db.getTodo({userid, id});
+    if (!todo) {
+        throw error(404, 'Todo not found');
     }
+    return { todo }
 };
 
 export const actions = {
@@ -25,7 +27,10 @@ export const actions = {
             });
         }
 
-        db.updateTodo({userid, id, description});
+        const updatedTodo = await db.updateTodo({userid, id, description});
+        if (!updatedTodo) {
+            return error(404, 'Todo not found');
+        }
         redirect(307, '../todo')
     },
     delete: async ({ cookies, params }) => {
