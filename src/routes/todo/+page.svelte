@@ -114,6 +114,7 @@
   <div class="completed-header flex justify-between items-center">
     <span>Completed Todos</span>
     <button
+      type="button"
       class="completed-btn bg-green-300 text-black py-2 px-4 rounded hover:bg-green-400"
       onclick={() => (showCompleted = !showCompleted)}
     >
