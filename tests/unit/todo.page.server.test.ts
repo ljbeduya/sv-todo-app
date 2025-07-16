@@ -23,7 +23,7 @@ describe("todo list page's load() function", () => {
 
     const result = load(event);
 
-    expect(vi.mocked(db).getTodos).toHaveBeenCalledWith("test-user-id");
+    expect(vi.mocked(db.getTodos)).toHaveBeenCalledWith("test-user-id");
     expect(result).toMatchObject({
       todos: expect.any(Array),
     });
@@ -40,7 +40,7 @@ describe("todo list page's load() function", () => {
       },
       depends: dependsSpy,
     };
-    vi.mocked(db).getTodos.mockReturnValue([
+    vi.mocked(db.getTodos).mockReturnValue([
       {
         id: "1",
         description: "Test todo",
@@ -55,7 +55,7 @@ describe("todo list page's load() function", () => {
 
     const result = load(event);
 
-    expect(vi.mocked(db).getTodos).toHaveBeenCalledWith("test-user-id");
+    expect(vi.mocked(db.getTodos)).toHaveBeenCalledWith("test-user-id");
     expect(result).toMatchObject({
       todos: expect.any(Array),
     });
