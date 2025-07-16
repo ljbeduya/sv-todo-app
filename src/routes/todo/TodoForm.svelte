@@ -6,8 +6,11 @@
     description = "",
     done = false,
     saveActionPath,
-    deleteActionPath = null,
     errorMessage = null,
+    handleBack = (e: MouseEvent) => {
+      goto("/todo");
+    },
+    handleDelete = null,
   } = $props();
 </script>
 
@@ -31,10 +34,8 @@
         <h2>Add a todo:</h2>
         <button
           class="back-btn bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-600"
-          onclick={(e) => {
-            e.preventDefault();
-            goto("/todo");
-          }}
+          onclick={(e) => handleBack(e)}
+          type="button"
         >
           Back
         </button>
@@ -51,15 +52,17 @@
       >
     </label>
     <div class="button-actions">
-      {#if deleteActionPath}
+      {#if handleDelete}
         <button
-          formaction={deleteActionPath}
+          type="button"
+          onclick={(e) => handleDelete(e)}
           class="btn-secondary bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 delete-btn"
         >
           Delete
         </button>
       {/if}
       <button
+        type="submit"
         class="btn-primary text-white py-2 px-4 rounded save-btn"
         disabled={done}
         class:bg-blue-500={!done}

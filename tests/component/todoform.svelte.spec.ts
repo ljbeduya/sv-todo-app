@@ -46,7 +46,7 @@ describe("TodoForm when viewing an incomplete todo", () => {
   beforeEach(() => {
     render(TodoForm, {
       saveActionPath: "?/update",
-      deleteActionPath: "?/delete",
+      handleDelete: () => {},
       description: "Test todo",
       done: false,
     });
@@ -88,7 +88,7 @@ describe("TodoForm when viewing a completed todo", () => {
   beforeEach(() => {
     render(TodoForm, {
       saveActionPath: "?/update",
-      deleteActionPath: "?/delete",
+      handleDelete: () => {},
       description: "Test todo",
       done: true,
     });
