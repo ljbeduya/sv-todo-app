@@ -25,6 +25,7 @@
     </a>
   </span>
   <button
+    type="button"
     class="delete-btn"
     aria-label="Mark as complete"
     onclick={async () => await handleDelete(todo.id)}

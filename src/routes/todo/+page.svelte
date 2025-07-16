@@ -49,12 +49,14 @@
 <div class="text-column">
   <h1>To Do List</h1>
   <button
+    type="button"
     class="create-btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
     onclick={handleCreate}
   >
     Add a todo
   </button>
   <button
+    type="button"
     class="search-btn text-white py-2 px-4 rounded"
     onclick={() => (doSearch = !doSearch)}
     disabled={!data.todos.length}
