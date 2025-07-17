@@ -9,8 +9,14 @@
   let doSearch = $state(false);
 
   let searchKey = $state("");
-
+  let todos = $state(data?.todos ?? []);
   let originalTodos = [...(data?.todos ?? [])];
+
+  $effect(() => {
+    if (data?.todos) {
+      todos = data.todos;
+    }
+  });
 
   function handleCreate() {
     goto("/todo/create");
@@ -55,47 +61,46 @@
   >
     Add a todo
   </button>
-  <button
-    type="button"
-    class="search-btn text-white py-2 px-4 rounded"
-    onclick={() => (doSearch = !doSearch)}
-    disabled={!data.todos.length}
-    class:bg-gray-400={data.todos.length}
-    class:hover:bg-gray-600={data.todos.length}
-    class:bg-gray-300={!data.todos.length}
-  >
-    {!doSearch ? "Show" : "Hide"} Search
-  </button>
-  {#if doSearch}
-    <div
-      class="search-container"
-      transition:slide
+  <div class="search-container flex items-center mb-4">
+    {#if doSearch}
+      <div
+        class="search-field flex items-center"
+        transition:slide={{ axis: "x", duration: 400 }}
+      >
+        <input
+          type="text"
+          bind:value={searchKey}
+          placeholder="Search todos..."
+          class="border border-gray-300 rounded px-2 py-1 mb-4 w-full max-w-md"
+          autocomplete="off"
+          oninput={() => {
+            const filteredTodos = originalTodos.filter((todo) =>
+              todo.description?.toLowerCase().includes(searchKey)
+            );
+            todos = filteredTodos;
+          }}
+        />
+      </div>
+    {/if}
+    <button
+      type="button"
+      class="search-btn text-white py-2 px-4 rounded"
+      onclick={() => (doSearch = !doSearch)}
+      disabled={!data.todos.length}
+      class:bg-gray-400={data.todos.length}
+      class:hover:bg-gray-600={data.todos.length}
+      class:bg-gray-300={!data.todos.length}
+      style="width: {doSearch ? 'auto' : '100%'}"
     >
-      <input
-        type="text"
-        bind:value={searchKey}
-        placeholder="Search todos..."
-        class="border border-gray-300 rounded px-2 py-1 mb-4 w-full max-w-md"
-        autocomplete="off"
-        oninput={() => {
-          const filteredTodos = originalTodos.filter((todo) =>
-            todo.description?.toLowerCase().includes(searchKey)
-          );
-
-          data = {
-            ...data,
-            todos: filteredTodos,
-          };
-        }}
-      />
-    </div>
-  {/if}
+      {!doSearch ? "Show" : "Hide"} Search
+    </button>
+  </div>
   <div class="todo-list">
-    {#if data.todos.length === 0}
+    {#if todos.length === 0}
       <p class="text-gray-500">You have no todos yet.</p>
     {:else}
       <ul>
-        {#each data.todos.filter((todo) => !todo.done) as todo (todo.id)}
+        {#each todos.filter((todo) => !todo.done) as todo (todo.id)}
           <li
             in:fly={{ y: 20, duration: 400 }}
             out:slide={{ duration: 300 }}
@@ -111,40 +116,42 @@
     {/if}
   </div>
   <br />
-  <div class="completed-header flex justify-between items-center">
-    <span>Completed Todos</span>
-    <button
-      type="button"
-      class="completed-btn bg-green-300 text-black py-2 px-4 rounded hover:bg-green-400"
-      onclick={() => (showCompleted = !showCompleted)}
-    >
-      {!showCompleted ? "Show" : "Hide"}
-    </button>
-  </div>
-  {#if showCompleted}
-    <div
-      class="completed-todos"
-      transition:slide
-    >
-      <ul>
-        {#each data.todos.filter((todo) => todo.done) as todo (todo.id)}
-          <li
-            in:fly={{ y: 20, duration: 400 }}
-            out:slide={{ duration: 300 }}
-          >
-            <TodoItem
-              {todo}
-              {handleTodoToggle}
-              {handleDelete}
-            />
-          </li>
-        {/each}
-        {#if data.todos.filter((todo) => todo.done).length === 0}
-          <p class="text-gray-500">No completed todos yet.</p>
-        {/if}
-      </ul>
+  <div class="completed-container">
+    <div class="completed-header flex justify-between items-center">
+      <span>Completed Todos</span>
+      <button
+        type="button"
+        class="completed-btn bg-green-300 text-black py-2 px-4 rounded hover:bg-green-400"
+        onclick={() => (showCompleted = !showCompleted)}
+      >
+        {!showCompleted ? "Show" : "Hide"}
+      </button>
     </div>
-  {/if}
+    {#if showCompleted}
+      <div
+        class="completed-todos"
+        transition:slide
+      >
+        <ul>
+          {#each todos.filter((todo) => todo.done) as todo (todo.id)}
+            <li
+              in:fly={{ y: 20, duration: 400 }}
+              out:slide={{ duration: 300 }}
+            >
+              <TodoItem
+                {todo}
+                {handleTodoToggle}
+                {handleDelete}
+              />
+            </li>
+          {/each}
+          {#if todos.filter((todo) => todo.done).length === 0}
+            <p class="text-gray-500">No completed todos yet.</p>
+          {/if}
+        </ul>
+      </div>
+    {/if}
+  </div>
 </div>
 
 <style>
@@ -160,5 +167,18 @@
   }
   .text-column {
     width: 20rem;
+  }
+  .search-btn {
+    transition: width 0.5s;
+  }
+  .search-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .search-field input {
+    margin-bottom: 5px;
+    display: block;
   }
 </style>
