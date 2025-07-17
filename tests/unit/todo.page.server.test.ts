@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 vi.mock("$lib/server/database", () => ({
   getTodos: vi.fn(() => []),
 }));
-import { load } from "../../src/routes/todo/+page.server";
+import { load } from "$routes/todo/+page.server";
 import * as db from "$lib/server/database";
 
 describe("todo list page's load() function", () => {

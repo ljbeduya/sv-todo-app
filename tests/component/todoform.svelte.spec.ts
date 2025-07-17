@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { page } from "@vitest/browser/context";
 import { render } from "vitest-browser-svelte";
-import TodoForm from "../../src/routes/todo/TodoForm.svelte";
+import TodoForm from "$routes/todo/TodoForm.svelte";
 
 describe("TodoForm when adding a new todo", () => {
   beforeEach(() => {
