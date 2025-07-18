@@ -45,10 +45,10 @@
 </script>
 
 <svelte:head>
-  <title>To Do</title>
+  <title>Todo List</title>
   <meta
-    name="todo"
-    content="A to do app"
+    name="description"
+    content="My To Dos"
   />
 </svelte:head>
 

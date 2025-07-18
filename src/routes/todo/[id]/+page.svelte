@@ -15,6 +15,14 @@
   }
 </script>
 
+<svelte:head>
+  <title>View Todo</title>
+  <meta
+    name="description"
+    content="Viewing todo"
+  />
+</svelte:head>
+
 <TodoForm
   description={data.todo.description}
   done={data.todo.done}
