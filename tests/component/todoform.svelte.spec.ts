@@ -12,10 +12,10 @@ describe("TodoForm when adding a new todo", () => {
 
   it("renders a header", () => {
     const todoHeader = page.getByRole("heading", {
-      name: "Add a todo:",
+      name: "Todo content:",
     });
     expect(todoHeader).toBeInTheDocument();
-    expect(todoHeader).toHaveTextContent("Add a todo:");
+    expect(todoHeader).toHaveTextContent("Todo content:");
   });
 
   it("renders an empty and enabled text area", () => {

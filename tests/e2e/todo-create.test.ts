@@ -7,7 +7,7 @@ test.describe("Todo Create Page", () => {
   });
 
   test("initial page display", async ({ page }) => {
-    const todoHeader = page.getByRole("heading", { name: "Add a todo:" });
+    const todoHeader = page.getByRole("heading", { name: "Todo content:" });
     await expect(todoHeader).toBeVisible();
 
     const todoTextArea = page.getByRole("textbox");

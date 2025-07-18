@@ -31,7 +31,7 @@
       class="block text-sm font-medium"
     >
       <div class="description-label flex items-center">
-        <h2>Add a todo:</h2>
+        <h2>Todo content:</h2>
         <button
           class="back-btn bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-600"
           onclick={(e) => handleBack(e)}
