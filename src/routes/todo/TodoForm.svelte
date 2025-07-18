@@ -28,7 +28,7 @@
   >
     <label
       for="description"
-      class="block text-sm font-medium text-gray-700"
+      class="block text-sm font-medium"
     >
       <div class="description-label flex items-center">
         <h2>Add a todo:</h2>
@@ -42,16 +42,17 @@
       </div>
       <br />
       <textarea
-        class="description-input"
+        class="description-input dark:bg-gray-700 rounded"
         name="description"
         autocomplete="off"
         required
         disabled={done}
         class:text-gray-500={done}
-        class:bg-gray-300={done}>{description ?? ""}</textarea
+        class:bg-gray-300={done}
+        class:dark:bg-gray-300={done}>{description ?? ""}</textarea
       >
     </label>
-    <div class="button-actions">
+    <div class="button-actions flex justify-end">
       {#if handleDelete}
         <button
           type="button"
@@ -84,10 +85,6 @@
     resize: vertical;
     text-wrap: initial;
     overflow-y: auto;
-  }
-  .button-actions {
-    display: flex;
-    justify-content: flex-end;
   }
   .delete-btn {
     margin-right: auto;

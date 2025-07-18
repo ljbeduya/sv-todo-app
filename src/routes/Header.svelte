@@ -1,24 +1,34 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import logo from "$lib/images/svelte-logo.svg";
   import github from "$lib/images/github.svg";
+  import moon from "$lib/images/moon_icon.png";
+  import sun from "$lib/images/sun_icon.png";
+
+  let isDarkMode = $state(false);
+
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle("dark");
+    isDarkMode = !isDarkMode;
+  }
 </script>
 
-<header>
+<header class="header flex justify-between">
   <div class="corner">
     <a
-      href="https://svelte.dev/docs/kit"
+      href="https://github.com/ljbeduya/sv-todo-app"
       target="_blank"
       rel="noopener noreferrer"
+      class="flex items-center justify-center"
     >
       <img
-        src={logo}
-        alt="SvelteKit"
+        src={github}
+        alt="GitHub"
+        class="dark:bg-white rounded-full border-1 size-8"
       />
     </a>
   </div>
 
-  <nav>
+  <nav class="nav flex justify-center">
     <svg
       viewBox="0 0 2 3"
       aria-hidden="true"
@@ -45,48 +55,33 @@
     </svg>
   </nav>
 
-  <div class="corner">
-    <a
-      href="https://github.com/ljbeduya/sv-todo-app"
-      target="_blank"
-      rel="noopener noreferrer"
+  <div class="corner flex justify-center items-center">
+    <button
+      type="button"
+      class="border-1 flex justify-center items-center rounded-full bg-none size-8"
+      onclick={toggleDarkMode}
     >
       <img
-        src={github}
-        alt="GitHub"
+        src={isDarkMode ? sun : moon}
+        alt="Toggle Dark Mode"
+        class="icon hover:bg-red-100 dark:hover:bg-yellow-50 rounded-full size-7 p-0.5"
       />
-    </a>
+    </button>
   </div>
 </header>
 
 <style>
-  header {
-    display: flex;
-    justify-content: space-between;
-  }
-
   .corner {
     width: 3em;
     height: 3em;
   }
 
   .corner a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     height: 100%;
   }
 
-  .corner img {
-    width: 2em;
-    height: 2em;
-    object-fit: contain;
-  }
-
   nav {
-    display: flex;
-    justify-content: center;
     --background: rgba(255, 255, 255, 0.7);
   }
 

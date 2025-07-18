@@ -7,7 +7,9 @@
   );
 </script>
 
-<div class="todo-item">
+<div
+  class="todo-item flex items-center justify-end max-w-md rounded hover:bg-red-100 dark:hover:text-black dark:hover:bg-yellow-50 gap-2"
+>
   <input
     type="checkbox"
     checked={todo.done}
@@ -53,12 +55,6 @@
     margin: auto;
   }
   .todo-item {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5rem;
     padding: 0.5rem;
-    border-bottom: 1px solid #e5e7eb;
-    width: 100%;
   }
 </style>

@@ -5,7 +5,7 @@
   let { children } = $props();
 </script>
 
-<div class="app">
+<div class="app text-black bg-gray-200 dark:text-white dark:bg-black">
   <Header />
 
   <main>
@@ -41,10 +41,6 @@
     justify-content: center;
     align-items: center;
     padding: 12px;
-  }
-
-  footer a {
-    font-weight: bold;
   }
 
   @media (min-width: 480px) {

@@ -53,7 +53,7 @@
 </svelte:head>
 
 <div class="text-column">
-  <h1>To Do List</h1>
+  <h1>My To Dos</h1>
   <button
     type="button"
     class="create-btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
@@ -64,14 +64,14 @@
   <div class="search-container flex items-center mb-4">
     {#if doSearch}
       <div
-        class="search-field flex items-center"
+        class="search-field flex-auto items-center"
         transition:slide={{ axis: "x", duration: 400 }}
       >
         <input
           type="text"
           bind:value={searchKey}
           placeholder="Search todos..."
-          class="border border-gray-300 rounded px-2 py-1 mb-4 w-full max-w-md"
+          class="rounded px-1 py-1 mb-2 max-w-md gap-3 dark:bg-gray-700 dark:text-white"
           autocomplete="off"
           oninput={() => {
             const filteredTodos = originalTodos.filter((todo) =>
@@ -84,7 +84,7 @@
     {/if}
     <button
       type="button"
-      class="search-btn text-white py-2 px-4 rounded"
+      class="search-btn text-white py-2 px-4 rounded flex-auto"
       onclick={() => (doSearch = !doSearch)}
       disabled={!data.todos.length}
       class:bg-gray-400={data.todos.length}
@@ -102,6 +102,7 @@
       <ul>
         {#each todos.filter((todo) => !todo.done) as todo (todo.id)}
           <li
+            class="rounded border-1"
             in:fly={{ y: 20, duration: 400 }}
             out:slide={{ duration: 300 }}
           >
@@ -121,7 +122,7 @@
       <span>Completed Todos</span>
       <button
         type="button"
-        class="completed-btn bg-green-300 text-black py-2 px-4 rounded hover:bg-green-400"
+        class="completed-btn bg-green-400 text-white py-2 px-4 rounded hover:bg-green-600"
         onclick={() => (showCompleted = !showCompleted)}
       >
         {!showCompleted ? "Show" : "Hide"}
@@ -135,6 +136,7 @@
         <ul>
           {#each todos.filter((todo) => todo.done) as todo (todo.id)}
             <li
+              class="rounded border-1"
               in:fly={{ y: 20, duration: 400 }}
               out:slide={{ duration: 300 }}
             >
@@ -156,29 +158,13 @@
 
 <style>
   li {
-    border: 1px solid;
-    margin: 0 3px 3px 3px;
-    padding: 1px;
+    margin-bottom: 0.3rem;
+    padding: 0.1rem;
   }
-  .create-btn,
-  .search-btn,
-  .completed-btn {
-    margin-bottom: 5px;
+  button {
+    margin-bottom: 0.4rem;
   }
   .text-column {
     width: 20rem;
-  }
-  .search-btn {
-    transition: width 0.5s;
-  }
-  .search-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .search-field input {
-    margin-bottom: 5px;
-    display: block;
   }
 </style>
