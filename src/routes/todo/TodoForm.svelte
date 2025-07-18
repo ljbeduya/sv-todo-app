@@ -1,6 +1,7 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import { goto } from "$app/navigation";
+  import { onMount } from "svelte";
 
   let {
     description = "",
@@ -12,6 +13,14 @@
     },
     handleDelete = null,
   } = $props();
+
+  let descriptionInput: HTMLTextAreaElement;
+
+  onMount(() => {
+    if (!done && descriptionInput) {
+      descriptionInput.focus();
+    }
+  });
 </script>
 
 <div class="text-column">
@@ -42,6 +51,7 @@
       </div>
       <br />
       <textarea
+        bind:this={descriptionInput}
         class="description-input dark:bg-gray-700 rounded"
         name="description"
         autocomplete="off"
