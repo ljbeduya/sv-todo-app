@@ -1,4 +1,6 @@
 <script lang="ts">
+  import remove from "$lib/images/remove.svg";
+
   let { todo, handleTodoToggle, handleDelete } = $props();
   let description = $derived(
     todo.description.length > 30
@@ -33,7 +35,7 @@
     onclick={async () => await handleDelete(todo.id)}
   >
     <img
-      src="/remove.svg"
+      src={remove}
       alt="404 Not Found"
       class="w-full max-w-md mx-auto mb-4"
     />
