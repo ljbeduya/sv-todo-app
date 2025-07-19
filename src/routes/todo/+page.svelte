@@ -9,8 +9,10 @@
   let doSearch = $state(false);
 
   let searchKey = $state("");
+
   let todos = $state(data?.todos ?? []);
-  let originalTodos = [...(data?.todos ?? [])];
+  let incompleteTodos = $derived(todos.filter((todo) => !todo.done));
+  let completedTodos = $derived(todos.filter((todo) => todo.done));
 
   $effect(() => {
     if (data?.todos) {
@@ -20,6 +22,12 @@
 
   function handleCreate() {
     goto("/todo/create");
+  }
+
+  function handleSearchInput() {
+    todos = data.todos.filter((todo) =>
+      todo.description?.toLowerCase().includes(searchKey)
+    );
   }
 
   async function handleTodoToggle(todoId: string, done: boolean) {
@@ -73,12 +81,7 @@
           placeholder="Search todos..."
           class="rounded px-1 py-1 mb-2 max-w-md gap-3 dark:bg-gray-700 dark:text-white"
           autocomplete="off"
-          oninput={() => {
-            const filteredTodos = originalTodos.filter((todo) =>
-              todo.description?.toLowerCase().includes(searchKey)
-            );
-            todos = filteredTodos;
-          }}
+          oninput={handleSearchInput}
         />
       </div>
     {/if}
@@ -96,11 +99,15 @@
     </button>
   </div>
   <div class="todo-list">
-    {#if todos.length === 0}
-      <p class="text-gray-500">You have no todos yet.</p>
+    {#if incompleteTodos.length === 0}
+      {#if !searchKey}
+        <p class="text-gray-500">You have no todos yet.</p>
+      {:else}
+        <p class="text-gray-500">No matching incomplete todos found.</p>
+      {/if}
     {:else}
       <ul>
-        {#each todos.filter((todo) => !todo.done) as todo (todo.id)}
+        {#each incompleteTodos as todo (todo.id)}
           <li
             class="rounded border-1"
             in:fly={{ y: 20, duration: 400 }}
@@ -134,7 +141,7 @@
         transition:slide
       >
         <ul>
-          {#each todos.filter((todo) => todo.done) as todo (todo.id)}
+          {#each completedTodos as todo (todo.id)}
             <li
               class="rounded border-1"
               in:fly={{ y: 20, duration: 400 }}
@@ -147,8 +154,12 @@
               />
             </li>
           {/each}
-          {#if todos.filter((todo) => todo.done).length === 0}
-            <p class="text-gray-500">No completed todos yet.</p>
+          {#if completedTodos.length === 0}
+            {#if !searchKey}
+              <p class="text-gray-500">No completed todos yet.</p>
+            {:else}
+              <p class="text-gray-500">No matching completed todos found.</p>
+            {/if}
           {/if}
         </ul>
       </div>
