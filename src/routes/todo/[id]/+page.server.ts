@@ -27,7 +27,7 @@ export const actions = {
 
     const updatedTodo = await db.updateTodo({ userid, id, description });
     if (!updatedTodo) {
-      return error(404, "Todo not found");
+      throw error(404, "Todo not found");
     }
     redirect(307, "../todo");
   },
