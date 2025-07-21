@@ -9,25 +9,16 @@
   let doSearch = $state(false);
 
   let searchKey = $state("");
-
-  let todos = $state(data?.todos ?? []);
-  let incompleteTodos = $derived(todos.filter((todo) => !todo.done));
-  let completedTodos = $derived(todos.filter((todo) => todo.done));
-
-  $effect(() => {
-    if (data?.todos) {
-      todos = data.todos;
-    }
-  });
+  let filteredTodos = $derived(
+    data.todos.filter((todo) =>
+      todo.description?.toLowerCase().includes(searchKey)
+    )
+  );
+  let incompleteTodos = $derived(filteredTodos.filter((todo) => !todo.done));
+  let completedTodos = $derived(filteredTodos.filter((todo) => todo.done));
 
   function handleCreate() {
     goto("/todo/create");
-  }
-
-  function handleSearchInput() {
-    todos = data.todos.filter((todo) =>
-      todo.description?.toLowerCase().includes(searchKey)
-    );
   }
 
   async function handleTodoToggle(todoId: string, done: boolean) {
@@ -81,7 +72,6 @@
           placeholder="Search todos..."
           class="rounded px-1 py-1 mb-2 max-w-md gap-3 dark:bg-gray-700 dark:text-white"
           autocomplete="off"
-          oninput={handleSearchInput}
         />
       </div>
     {/if}
